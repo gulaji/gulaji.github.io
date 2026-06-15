@@ -19,12 +19,25 @@
         <button class="nav-tab" data-section="实验操作">实验操作</button>
         <button class="nav-tab" data-section="论文写作">论文写作</button>
       </nav>
+      <div class="header-actions">
+        <button class="btn-icon" id="loginBtn" title="登录">🔐 登录</button>
+        <button class="btn-icon" id="logoutBtn" title="退出" style="display:none">👋 退出</button>
+      </div>
       <!-- 移动端汉堡菜单 -->
       <button class="hamburger" id="hamburger" aria-label="菜单">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
+
+  <!-- ========== 工具条（登录后可见） ========== -->
+  <div class="tool-bar" id="toolBar" style="display:none">
+    <div class="tool-bar-inner">
+      <span class="tool-bar-status">🟢 编辑模式</span>
+      <button class="btn-tool" id="saveBtn">💾 保存</button>
+      <button class="btn-tool" id="settingsBtn">⚙️ 设置</button>
+    </div>
+  </div>
 
   <!-- ========== 主体布局 ========== -->
   <div class="main-layout">
@@ -33,7 +46,7 @@
     <aside class="sidebar" id="sidebar">
       <div class="profile-card">
         <div class="avatar" id="avatarBox">
-          <img src="images/avatar.jpg" alt="头像" id="avatarImg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <img src="images/hl.jpg" alt="头像" id="avatarImg" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
           <div class="avatar-placeholder" style="display:none" id="avatarFallback">👤</div>
         </div>
         <h2 class="profile-name" id="profileName">姓名</h2>
@@ -62,8 +75,76 @@
     <p>© <span id="footerYear">2026</span> 个人学术记录 · 用心记录每一步</p>
   </footer>
 
+  <!-- ==================== 模态窗 ==================== -->
+
+  <!-- 登录窗 -->
+  <div class="modal-overlay" id="loginModal">
+    <div class="modal-box">
+      <h3>🔐 管理员登录</h3>
+      <p class="modal-hint">输入密码后可在线编辑和保存网站内容</p>
+      <input type="password" id="passwordInput" class="modal-input" placeholder="请输入密码">
+      <p class="modal-msg" id="loginMsg"></p>
+      <button class="btn-primary" id="loginSubmit">登 录</button>
+    </div>
+  </div>
+
+  <!-- 编辑窗（添加/编辑记录） -->
+  <div class="modal-overlay" id="editorModal">
+    <div class="modal-box modal-editor">
+      <h3 id="editorTitle">✏️ 编辑记录</h3>
+      <div class="form-group" id="editorSectionSelect" style="display:none">
+        <label>所属板块</label>
+        <select id="entrySection" class="modal-input">
+          <option value="lifeEntries">读研生活分享</option>
+          <option value="readingNotes">文献笔记</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>标题</label>
+        <input type="text" id="entryTitleInput" class="modal-input" placeholder="记录标题">
+      </div>
+      <div class="form-group">
+        <label>日期</label>
+        <input type="date" id="entryDateInput" class="modal-input">
+      </div>
+      <div class="form-group">
+        <label>内容（支持HTML格式）</label>
+        <textarea id="entryContentInput" class="modal-textarea" rows="6" placeholder="记录详细内容..."></textarea>
+      </div>
+      <div class="form-group form-check">
+        <label>
+          <input type="checkbox" id="entryPrivate"> 🔒 仅自己可见
+        </label>
+      </div>
+      <div class="modal-buttons">
+        <button class="btn-secondary" id="editorCancel">取消</button>
+        <button class="btn-primary" id="editorSave">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 设置窗（GitHub Token） -->
+  <div class="modal-overlay" id="settingsModal">
+    <div class="modal-box">
+      <h3>⚙️ 设置</h3>
+      <p class="modal-hint">需要 GitHub Token 才能在线保存内容到网站。</p>
+      <p class="modal-hint" style="font-size:0.8rem">
+        👉 <a href="https://github.com/settings/tokens/new?scopes=repo&description=personal-web-editor" target="_blank" rel="noopener">
+        点此创建 Token</a>（选 "repo" 权限，生成后复制粘贴到下方）
+      </p>
+      <div class="form-group">
+        <label>GitHub Token</label>
+        <input type="password" id="tokenInput" class="modal-input" placeholder="ghp_xxxxxxxxxxxx">
+      </div>
+      <button class="btn-primary" id="settingsSave">保存设置</button>
+      <p class="modal-hint" style="font-size:0.75rem;margin-top:8px">Token 只保存在你的浏览器本地，不会上传到任何地方。</p>
+    </div>
+  </div>
+
   <!-- ========== 脚本 ========== -->
   <script src="js/data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/editor.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

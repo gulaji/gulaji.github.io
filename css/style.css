@@ -649,10 +649,292 @@ img { max-width: 100%; display: block; }
   .section-title { font-size: 1.25rem; }
 }
 
+/* ========== 新功能样式：登录、编辑、模态窗 ========== */
+
+/* 头部按钮 */
+.header-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.btn-icon {
+  background: none;
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: var(--font);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.btn-icon:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* 工具条（登录后显示） */
+.tool-bar {
+  background: #e8f5e9;
+  border-bottom: 1px solid #c8e6c9;
+}
+.tool-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tool-bar-status {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #2e7d32;
+  flex: 1;
+}
+.btn-tool {
+  padding: 4px 14px;
+  border: 1px solid #c8e6c9;
+  background: #fff;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-family: var(--font);
+  cursor: pointer;
+  color: var(--text);
+  transition: all var(--transition);
+}
+.btn-tool:hover {
+  background: #c8e6c9;
+}
+
+/* 编辑按钮 */
+.edit-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.btn-edit, .btn-del, .btn-add-entity {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 4px;
+  font-size: 0.78rem;
+  font-family: var(--font);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.btn-edit:hover { color: var(--accent); border-color: var(--accent); background: rgba(52,152,219,0.04); }
+.btn-del:hover { color: var(--red); border-color: var(--red); background: rgba(231,76,60,0.04); }
+.btn-add-entity:hover { color: var(--green); border-color: var(--green); background: rgba(39,174,96,0.04); }
+
+/* 实体卡片内的编辑/删除按钮 */
+.entity-card-edit-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+/* 时间线条目的编辑按钮 */
+.timeline-edit-actions {
+  margin-top: 6px;
+}
+
+/* 隐私徽标 */
+.private-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.7rem;
+  background: #fff3e0;
+  color: #e65100;
+  margin-left: 6px;
+  font-weight: 500;
+}
+
+/* 板块标题行 - 添加按钮 */
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--border);
+}
+.section-title-row .section-title {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+  flex: 1;
+}
+
+/* ========== 模态窗 ========== */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(2px);
+}
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-box {
+  background: var(--bg);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  width: 90%;
+  max-width: 460px;
+  box-shadow: var(--shadow-lg);
+  animation: modalIn 0.25s ease;
+}
+.modal-editor {
+  max-width: 580px;
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.modal-box h3 {
+  font-size: 1.2rem;
+  margin-bottom: 8px;
+}
+
+.modal-hint {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: var(--font);
+  color: var(--text);
+  transition: border-color var(--transition);
+  margin-bottom: 14px;
+  box-sizing: border-box;
+}
+.modal-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+}
+
+.modal-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: var(--font);
+  color: var(--text);
+  resize: vertical;
+  transition: border-color var(--transition);
+  box-sizing: border-box;
+  line-height: 1.6;
+}
+.modal-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
+}
+
+.modal-msg {
+  font-size: 0.85rem;
+  color: var(--red);
+  margin-bottom: 10px;
+  min-height: 1.2em;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.form-check label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.form-check input[type="checkbox"] {
+  width: 16px; height: 16px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-family: var(--font);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.btn-primary:hover { background: var(--accent-dark); }
+
+.btn-secondary {
+  padding: 10px 20px;
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: var(--font);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.btn-secondary:hover { background: var(--bg-hover); }
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+.modal-buttons .btn-primary { width: auto; }
+
+/* ---------- 响应式补充 ---------- */
+@media (max-width: 768px) {
+  .tool-bar-inner { padding: 6px 16px; }
+  .modal-box { padding: 20px; width: 94%; }
+  .header-actions { order: 2; }
+  .modal-editor { max-height: 90vh; }
+}
+
 @media (max-width: 480px) {
   .header-inner { padding: 0 12px; }
   .logo { font-size: 0.9rem; }
   .main-layout { padding: 16px 12px; }
   .timeline { padding-left: 24px; }
   .timeline-item::before { left: -20px; width: 10px; height: 10px; }
+  .btn-icon { padding: 4px 8px; font-size: 0.78rem; }
 }
