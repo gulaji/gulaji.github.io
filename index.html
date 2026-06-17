@@ -108,8 +108,14 @@
         <input type="date" id="entryDateInput" class="modal-input">
       </div>
       <div class="form-group">
-        <label>内容（支持HTML格式）</label>
-        <textarea id="entryContentInput" class="modal-textarea" rows="6" placeholder="记录详细内容..."></textarea>
+        <label>内容（支持HTML格式，可用 ![描述](图片地址) 插入图片）</label>
+        <div class="img-toolbar">
+          <button type="button" class="btn-img-tool" id="btnUploadImg">📷 上传图片</button>
+          <button type="button" class="btn-img-tool" id="btnInsertImgUrl">🔗 图片链接</button>
+          <input type="file" id="imgFileInput" accept="image/*" style="display:none">
+          <span class="img-upload-status" id="imgUploadStatus"></span>
+        </div>
+        <textarea id="entryContentInput" class="modal-textarea" rows="6" placeholder="记录详细内容...&#10;&#10;💡 提示：点上方 📷上传图片 选择本地文件，或点 🔗图片链接 粘贴网络图片URL。也可以手动输入 ![描述](图片地址) 格式插入图片。"></textarea>
       </div>
       <div class="form-group form-check">
         <label>

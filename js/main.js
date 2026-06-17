@@ -518,6 +518,8 @@ function escapeHtml(text) {
 function formatContent(text) {
   if (!text) return '';
   let escaped = escapeHtml(text);
+  // 将 Markdown 图片语法 ![alt](url) 转为 HTML img 标签
+  escaped = escaped.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, '<img src="$2" alt="$1" loading="lazy">');
   escaped = escaped.replace(/\n\n/g, '</p><p>');
   escaped = escaped.replace(/\n/g, '<br>');
   return '<p>' + escaped + '</p>';

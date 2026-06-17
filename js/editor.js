@@ -94,6 +94,162 @@ async function saveToGitHub() {
   saveBtn.disabled = false;
 }
 
+// ==================== 图片上传与插入 ====================
+
+// 读取文件为 base64
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('文件读取失败'));
+    reader.readAsDataURL(file);
+  });
+}
+
+// 上传图片到 GitHub 仓库的 images/ 目录
+async function uploadImageToGitHub(file) {
+  const token = getGitHubToken();
+  if (!token) {
+    alert('请先在设置中配置 GitHub Token');
+    showModal('settingsModal');
+    return null;
+  }
+
+  const statusEl = document.getElementById('imgUploadStatus');
+  statusEl.textContent = '⏳ 上传中...';
+  statusEl.style.color = 'var(--text-muted)';
+
+  try {
+    // 生成唯一文件名
+    const ext = file.name.split('.').pop().toLowerCase() || 'png';
+    const timestamp = Date.now();
+    const safeName = `img_${timestamp}.${ext}`;
+    const path = `images/${safeName}`;
+
+    // 读取文件为 base64（去掉 data:... 前缀）
+    const dataUrl = await fileToBase64(file);
+    const content = dataUrl.split(',')[1];
+
+    // 检查文件是否已存在（获取 SHA）
+    let sha = null;
+    const getUrl = `https://api.github.com/repos/gulaji/gulaji.github.io/contents/${path}`;
+    try {
+      const getResp = await fetch(getUrl, {
+        headers: { 'Authorization': `token ${token}`, 'Accept': 'application/vnd.github.v3+json' }
+      });
+      if (getResp.ok) {
+        const data = await getResp.json();
+        sha = data.sha;
+      }
+    } catch (e) { /* 文件不存在，继续 */ }
+
+    // 上传文件
+    const putUrl = `https://api.github.com/repos/gulaji/gulaji.github.io/contents/${path}`;
+    const body = JSON.stringify({
+      message: `📷 上传图片 ${safeName}`,
+      content: content,
+      ...(sha ? { sha } : {})
+    });
+
+    const putResp = await fetch(putUrl, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/vnd.github.v3+json'
+      },
+      body: body
+    });
+
+    if (!putResp.ok) {
+      const errData = await putResp.json().catch(() => ({}));
+      throw new Error(errData.message || '上传失败: HTTP ' + putResp.status);
+    }
+
+    statusEl.textContent = '✅ 上传成功！';
+    statusEl.style.color = 'var(--green)';
+    setTimeout(() => { statusEl.textContent = ''; }, 3000);
+
+    // 返回相对路径，用作图片链接
+    return path;
+  } catch (err) {
+    statusEl.textContent = '❌ ' + err.message;
+    statusEl.style.color = 'var(--red)';
+    setTimeout(() => { statusEl.textContent = ''; statusEl.style.color = 'var(--text-muted)'; }, 5000);
+    return null;
+  }
+}
+
+// 在光标处插入文本
+function insertAtCursor(textarea, text) {
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const before = textarea.value.substring(0, start);
+  const after = textarea.value.substring(end);
+  textarea.value = before + text + after;
+  textarea.focus();
+  textarea.selectionStart = textarea.selectionEnd = start + text.length;
+}
+
+// 插入图片链接（弹窗输入 URL）
+function insertImageUrl() {
+  const url = prompt('请输入图片链接地址（支持网络图片URL）：');
+  if (!url || !url.trim()) return;
+  const alt = prompt('图片描述（可选，如"实验装置图"）：') || '图片';
+  const textarea = document.getElementById('entryContentInput');
+  const markdown = `![${alt}](${url.trim()})`;
+  insertAtCursor(textarea, markdown);
+}
+
+// 绑定图片工具栏
+function bindImageToolbar() {
+  const uploadBtn = document.getElementById('btnUploadImg');
+  const fileInput = document.getElementById('imgFileInput');
+  const urlBtn = document.getElementById('btnInsertImgUrl');
+  const textarea = document.getElementById('entryContentInput');
+
+  if (!uploadBtn || !fileInput || !urlBtn || !textarea) return;
+
+  // 点击上传按钮 → 触发文件选择
+  uploadBtn.addEventListener('click', () => {
+    fileInput.click();
+  });
+
+  // 选择文件后 → 上传到 GitHub
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    // 检查文件类型
+    if (!file.type.startsWith('image/')) {
+      alert('请选择图片文件（jpg、png、gif 等格式）');
+      fileInput.value = '';
+      return;
+    }
+
+    // 文件大小限制 5MB
+    if (file.size > 5 * 1024 * 1024) {
+      alert('图片大小不能超过 5MB');
+      fileInput.value = '';
+      return;
+    }
+
+    const path = await uploadImageToGitHub(file);
+    fileInput.value = '';
+
+    if (path) {
+      // 在光标处插入 markdown 图片语法
+      const alt = file.name.replace(/\.[^.]+$/, ''); // 用文件名（去扩展名）作描述
+      insertAtCursor(textarea, `![${alt}](${path})`);
+    }
+  });
+
+  // 插入链接按钮
+  urlBtn.addEventListener('click', () => {
+    insertImageUrl();
+  });
+}
+
 // ==================== 编辑器 UI ====================
 
 // 显示模态窗
@@ -218,6 +374,9 @@ function bindEditorModal() {
   document.getElementById('editorSave').addEventListener('click', () => {
     handleEditorSave();
   });
+
+  // 绑定图片工具栏
+  bindImageToolbar();
 }
 
 // 当前编辑器状态

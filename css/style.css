@@ -856,6 +856,55 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 0 0 3px rgba(52,152,219,0.1);
 }
 
+/* ---------- 图片工具栏 ---------- */
+.img-toolbar {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-img-tool {
+  padding: 5px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-family: var(--font);
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.btn-img-tool:hover {
+  background: var(--bg-hover);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.img-upload-status {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-left: 4px;
+}
+
+/* ---------- 内容区图片显示 ---------- */
+.timeline-content img,
+.entry-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 10px 0;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+/* 时间线展开后容纳图片 */
+.timeline-item.expanded .timeline-content {
+  max-height: 3000px;
+  overflow-y: auto;
+}
+
 .modal-msg {
   font-size: 0.85rem;
   color: var(--red);
