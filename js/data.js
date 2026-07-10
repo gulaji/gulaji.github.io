@@ -49,6 +49,12 @@ const projects = [
     "startDate": "2026-06-17",
     "timeline": [
       {
+        "date": "2026-07-10",
+        "title": "demo测试",
+        "content": "对项目进行了专门的环境配置，避免后续项目间使用软件版本冲突，造成干扰。\n第一次程序运行测试发现相似度值为314，这是不合理的。",
+        "private": false
+      },
+      {
         "date": "2026-07-09",
         "title": "项目框架搭好，代码demo初步完成",
         "content": "![项目文件结构总览](images/img_1783587831243.png)",
