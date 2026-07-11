@@ -49,6 +49,12 @@ const projects = [
     "startDate": "2026-06-17",
     "timeline": [
       {
+        "date": "2026-07-11",
+        "title": "demo测试调整优化2",
+        "content": "1、针对昨天的第三个问题。提出了D435配置，多帧融合取平均得到特征向量，证件照预处理的方案",
+        "private": false
+      },
+      {
         "date": "2026-07-10",
         "title": "demo测试",
         "content": "1、对项目进行了专门的环境配置，避免后续项目间使用软件版本冲突，造成干扰。\n2、第一次程序运行测试发现相似度值为314，这是不合理的。代码在 face_recognizer.py 中使用了 face.embedding（未归一化，L2 norm ≈ 23），但 cosine_similarity() 直接用 np.dot() 并假定向量已归一化。所以远离-1到1的范围。\n3、实时画面亮度低，匹配相似度只有百分之五十左右。",
