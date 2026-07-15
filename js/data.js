@@ -154,28 +154,22 @@ const experiments = [
 // ==================== 论文写作 ====================
 const papers = [
   {
-    "id": "paper-1",
-    "name": " ",
-    "type": "研究论文",
-    "target": "Journal of Hepatology",
-    "progress": "撰写中",
+    "id": "papers-1784086871039",
+    "name": "研究论文-目标：Optics and Lasers in Engineering",
+    "description": "论文调整修改",
+    "status": "进行中",
+    "startDate": "2026-07-15",
     "timeline": [
       {
-        "date": "2026-06-11",
-        "title": "完成文献综述部分初稿",
-        "content": "综述了蛋白X在肿瘤中的研究进展，涵盖其结构特征、信号通路、在不同癌症中的表达模式。引用文献 60 余篇。还需要补充近两年（2025-2026）的最新文献。"
-      },
-      {
-        "date": "2026-05-01",
-        "title": "确定论文框架",
-        "content": "与导师讨论确定了论文整体结构：\n1. 引言（研究背景与意义）\n2. 材料与方法\n3. 结果（分 3-4 个章节）\n4. 讨论\n5. 结论\n目标是投稿 Journal of Hepatology，需按该期刊格式准备。"
-      },
-      {
-        "date": "2026-03-10",
-        "title": "论文选题确定",
-        "content": "经过与导师三次讨论，确定毕业论文选题围绕蛋白X在肝癌中的功能机制展开。实验数据已有约 60%，还需补做几个关键实验（Co-IP、免疫荧光）。"
+        "date": "2026-07-15",
+        "title": "选定期刊，按部就班修改",
+        "content": "1、修改研究背景",
+        "private": false
       }
-    ]
+    ],
+    "type": "研究论文",
+    "target": "",
+    "progress": "选题"
   },
   {
     "id": "paper-2",
