@@ -196,6 +196,12 @@ const papers = [
 // ==================== 读研生活分享 ====================
 const lifeEntries = [
   {
+    "date": "2026-07-21",
+    "title": "金融级人脸识别技术方案调研报告",
+    "content": "FAR：False Accept Rate 误接受率 / 认假率\nTAR：True Accept Rate 正确接受率 / 通过率\n光照变化可能导致准确率下降、误识率增加；insightFace跨库性能差异，西方人脸跟亚洲人脸区别大；裸用开源模型存在合规问题；无内置域适应机制。\n多因子融合\nROC 校准\n![屏幕截图 2026-07-21 161438](images/img_1784621692974.png)",
+    "private": true
+  },
+  {
     "date": "2026-07-09",
     "title": "随手记",
     "content": "tkinter 是 Python 官方自带的标准 GUI（图形用户界面）库，全称 Tk interface，依托 Tcl/Tk 图形工具包实现。\n修复tkinter\n需要将真实身份证照片放入 data/id_photos/，编辑 data/id_photos/index.json 匹配你的文件：\n[\n  {\"id\": \"001\", \"name\": \"张三\", \"photo\": \"zhangsan.jpg\"},\n  {\"id\": \"002\", \"name\": \"李四\", \"photo\": \"lisi.jpg\"}\n]",
