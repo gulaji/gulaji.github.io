@@ -42,6 +42,27 @@ const profile = {
 // ==================== 项目进展 ====================
 const projects = [
   {
+    "id": "projects-1786331687994",
+    "name": "时序动作识别",
+    "description": "采用因果TCN对时序动作识别以及SOP流程",
+    "status": "进行中",
+    "startDate": "2026-08-10",
+    "timeline": [
+      {
+        "date": "2026-08-10",
+        "title": "标注工作台无法及时更新bug修复",
+        "content": "系统复用同一 segment_id，所以不断覆盖前一个动作",
+        "private": false
+      },
+      {
+        "date": "2026-08-10",
+        "title": "demo初步已经完成搭建",
+        "content": "![屏幕截图 2026-08-10 111311](images/img_1786331720064.png)",
+        "private": false
+      }
+    ]
+  },
+  {
     "id": "projects-1781709801349",
     "name": "人证核验系统",
     "description": "为了满足银行办理业务后，自动进行事后的人员和证件一致性核验检查，完善业务流程。",
