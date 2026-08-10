@@ -50,6 +50,12 @@ const projects = [
     "timeline": [
       {
         "date": "2026-08-10",
+        "title": "接下来进展推进",
+        "content": "下一阶段首先应把当前视频提交复核，然后继续采集和标注多人员、多商品视频；达到正式导出条件后，才进入特征提取、模型训练和独立测试。",
+        "private": false
+      },
+      {
+        "date": "2026-08-10",
         "title": "标注工作台无法及时更新bug修复",
         "content": "系统复用同一 segment_id，所以不断覆盖前一个动作",
         "private": false
